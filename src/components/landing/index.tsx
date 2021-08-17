@@ -1,9 +1,9 @@
-interface LandingPageProps {
-  initialData: any
+interface LandingProps {
+  initialData?: any
 }
 
-const LandingPage = ({ initialData }: LandingPageProps) => {
+const Landing = ({ initialData }: LandingProps) => {
   return <></>
 }
 
-export default LandingPage
+export default Landing

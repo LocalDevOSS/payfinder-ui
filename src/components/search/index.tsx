@@ -1,9 +1,9 @@
-interface SearchPageProps {
-  initialData: any
+interface SearchProps {
+  initialData?: any
 }
 
-const SearchPage = ({ initialData }: SearchPageProps) => {
+const Search = ({ initialData }: SearchProps) => {
   return <></>
 }
 
-export default SearchPage
+export default Search

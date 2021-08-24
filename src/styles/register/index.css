@@ -1,0 +1,61 @@
+#register-form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -400px;
+    margin-left: -300px;
+    width: 600px;
+    height: 600px;
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex; /* NEW, Spec - Firefox, Chrome, Opera */
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 500px) {
+    #register-form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -150px;
+        margin-left: -150px;
+        width: 300px;
+        height: 300px;
+        display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+        display: -ms-flexbox; /* TWEENER - IE 10 */
+        display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+        display: flex; /* NEW, Spec - Firefox, Chrome, Opera */
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.register-form-text-container {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+@media (max-width: 500px) {
+    .register-form-text-container {
+        font-size: 25px;
+        font-weight: 600;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+}
+
+#register-form-button {
+    width: 400px;
+}
+
+@media (max-width: 500px) {
+    #register-form-button {
+        width: 200px;
+    }
+}

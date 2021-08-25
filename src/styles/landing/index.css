@@ -1,11 +1,11 @@
 #landing-banner-container {
-    font-size: 20px;
     width: 100%;
     background-image: url("http://img.khan.co.kr/news/2019/09/07/2019090601000811800063961.jpg");
     background-position: center;
     background-size: cover;
     padding: 24px;
     min-height: 380px;
+    opacity: 0.85;
 }
 
 #landing-banner-container:before {
@@ -16,16 +16,26 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    opacity: 0.9;
 }
 
 .landing-banner-text-container {
     text-align: center;
     font-size: 38px;
-    color: white;
+    color: #ffffff;
     line-height: 25px;
     margin: 70px auto 70px auto;
-    font-weight: 800;
+    font-weight: 600;
+}
+
+@media (max-width: 500px) {
+    .landing-banner-text-container {
+        text-align: center;
+        font-size: 28px;
+        color: #ffffff;
+        line-height: 25px;
+        margin: 70px auto 70px auto;
+        font-weight: 600;
+    }
 }
 
 .landing-search-container {

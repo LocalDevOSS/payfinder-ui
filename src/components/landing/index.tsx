@@ -14,36 +14,50 @@ interface LandingProps {
 }
 
 const card = () => {
-  const menu: string[] = ['음식', '식료품', '의료', '의료', '의료', '의료', '의료', '의료']
+  const menu: string[] = ['음식', '식료품']
   return menu.map((m) => {
     return (
       <div key={Math.random()}>
-        <Row>
+        <Row style={{ marginTop: '25px', marginBottom: '25px', marginLeft: '25px' }}>
           <Col>
-            <span style={{ color: 'black', fontSize: '20px' }}>{m}</span>
+            <span style={{ color: 'black', fontSize: '25px' }}>{m}</span>
           </Col>
         </Row>
-        <Row gutter={16}>
+        <Row justify='center'>
           <Col span={8}>
             <Card
               bordered={false}
-              style={{ width: 240 }}
-              cover={<img alt='example' src='https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png' />}
-            />
-            Card content
-          </Col>
-          <Col span={8}>
-            <Card
-              bordered={false}
-              style={{ width: 240 }}
-              cover={<img alt='example' src='https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png' />}
+              style={{ width: '80%', margin: 'auto' }}
+              cover={
+                <img
+                  alt='example'
+                  src='https://mp-seoul-image-production-s3.mangoplate.com/265831/5ge6h27-8urx_m.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
+                />
+              }
             />
           </Col>
           <Col span={8}>
             <Card
               bordered={false}
-              style={{ width: 240 }}
-              cover={<img alt='example' src='https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png' />}
+              style={{ width: '80%', margin: 'auto' }}
+              cover={
+                <img
+                  alt='example'
+                  src='https://mp-seoul-image-production-s3.mangoplate.com/265831/5ge6h27-8urx_m.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
+                />
+              }
+            />
+          </Col>
+          <Col span={8}>
+            <Card
+              bordered={false}
+              style={{ width: '80%', margin: 'auto' }}
+              cover={
+                <img
+                  alt='example'
+                  src='https://mp-seoul-image-production-s3.mangoplate.com/265831/5ge6h27-8urx_m.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
+                />
+              }
             />
           </Col>
         </Row>
@@ -81,7 +95,6 @@ const Landing = ({ initialData }: LandingProps) => {
           </div>
           <div className='site-card-wrapper'>{card()}</div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Pay Finder ©2021</Footer>
       </Layout>
     </>
   )

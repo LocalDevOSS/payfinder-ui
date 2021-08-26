@@ -26,7 +26,12 @@ const Register = ({ initialData }: RegisterProps) => {
 
   const payTypeSelect = () => {
     return (
-      <Select style={{ width: '100%' }} showSearch placeholder='페이 종류를 선택해주세요.' optionFilterProp='children'>
+      <Select
+        className='register-form-select'
+        showSearch
+        placeholder='페이 종류를 선택해주세요.'
+        optionFilterProp='children'
+      >
         <Option value='성남시'>성남시</Option>
         <Option value='용인시'>용인시</Option>
         <Option value='부천시'>부천시</Option>
@@ -37,7 +42,7 @@ const Register = ({ initialData }: RegisterProps) => {
   const storeTypeSelect = () => {
     return (
       <Select
-        style={{ width: '100%' }}
+        className='register-form-select'
         showSearch
         placeholder='판매점 종류를 선택해주세요.'
         optionFilterProp='children'
@@ -56,12 +61,16 @@ const Register = ({ initialData }: RegisterProps) => {
         <Content style={{ marginTop: 64 }}>
           <div id='register-form-container'>
             <div>
-              <div className='register-form-text-container'>
-                <span>{stepSeq === 0 ? '어떤 페이를 사용하실 건가요?' : '원하시는 판매점의 종류가 있나요?'}</span>
-              </div>
-              <Row>
+              <Row className='register-form-text-row'>
+                <Col>
+                  <span>
+                    {stepSeq === 0 ? '1. 어떤 페이를 사용하실 건가요?' : '2. 원하시는 판매점의 종류가 있나요?'}
+                  </span>
+                </Col>
+              </Row>
+              <Row className='register-form-select-row'>
                 <Col
-                  xs={{ span: 16, offset: 4 }}
+                  xs={{ span: 24, offset: 0 }}
                   sm={{ span: 24, offset: 0 }}
                   md={{ span: 24, offset: 0 }}
                   lg={{ span: 24, offset: 0 }}
@@ -69,17 +78,30 @@ const Register = ({ initialData }: RegisterProps) => {
                   {stepSeq === 0 ? payTypeSelect() : storeTypeSelect()}
                 </Col>
               </Row>
-              <div className='register-form-text-container'>
-                <Button
-                  id='register-form-button'
-                  type='primary'
-                  onClick={() => {
-                    setStepSeq(stepSeq + 1)
-                  }}
-                >
-                  다음
-                </Button>
-              </div>
+              <Row justify='space-between'>
+                <Col>
+                  <Button
+                    id='register-form-button'
+                    onClick={() => {
+                      setStepSeq(stepSeq - 1)
+                    }}
+                    disabled={stepSeq === 0}
+                  >
+                    이전
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    id='register-form-button'
+                    type='primary'
+                    onClick={() => {
+                      setStepSeq(stepSeq + 1)
+                    }}
+                  >
+                    다음
+                  </Button>
+                </Col>
+              </Row>
             </div>
           </div>
         </Content>

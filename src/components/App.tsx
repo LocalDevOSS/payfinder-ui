@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Landing from './landing'
 import Register from './register'
-import Search from './search'
+import SearchResult from './search'
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
       <Switch>
         <Route path='/' exact component={Landing} />
         <Route path='/register' component={Register} />
-        <Route path='/search' component={Search} />
+        <Route path='/search' component={SearchResult} />
       </Switch>
     </BrowserRouter>
   )

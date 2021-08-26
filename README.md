@@ -4,3 +4,14 @@
   - create react app
   - typescript
   - recoil
+  
+- component structure
+  - common
+    - header
+      - CommonHeader.tsx
+  - landing
+    - index.tsx
+  - register
+    - index.tsx
+  - search
+    - index.tsx

@@ -1,0 +1,10 @@
+#header-container {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+}
+
+.header-text {
+    color: white;
+    font-size: 18px;
+}

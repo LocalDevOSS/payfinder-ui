@@ -77,7 +77,7 @@ const Landing = ({ initialData }: LandingProps) => {
                   enterButton='검색'
                   size='large'
                   onSearch={() => {
-                    history.push('/search')
+                    history.push('/search?keyword=중식당&payType=성남시')
                   }}
                 />
               </Col>

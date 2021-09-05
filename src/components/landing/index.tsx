@@ -34,24 +34,34 @@ const Landing = ({ initialData }: LandingProps) => {
               <span className='landing-card-title-text'>{m}</span>
             </Col>
           </Row>
-          <Row justify='center'>
-            <Col span={8} style={{ textAlign: 'center' }}>
-              <img
-                className='landing-card-image'
-                src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-              />
-            </Col>
-            <Col span={8} style={{ textAlign: 'center' }}>
-              <img
-                className='landing-card-image'
-                src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-              />
-            </Col>
-            <Col span={8} style={{ textAlign: 'center' }}>
-              <img
-                className='landing-card-image'
-                src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-              />
+          <Row>
+            <Col offset={0} span={24}>
+              <Row justify='center'>
+                <Col span={6} style={{ textAlign: 'center' }}>
+                  <img
+                    className='landing-card-image'
+                    src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
+                  />
+                </Col>
+                <Col span={6} style={{ textAlign: 'center' }}>
+                  <img
+                    className='landing-card-image'
+                    src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
+                  />
+                </Col>
+                <Col span={6} style={{ textAlign: 'center' }}>
+                  <img
+                    className='landing-card-image'
+                    src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
+                  />
+                </Col>
+                <Col span={6} style={{ textAlign: 'center' }}>
+                  <img
+                    className='landing-card-image'
+                    src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
+                  />
+                </Col>
+              </Row>
             </Col>
           </Row>
         </div>
@@ -77,7 +87,7 @@ const Landing = ({ initialData }: LandingProps) => {
                   enterButton='검색'
                   size='large'
                   onSearch={() => {
-                    history.push('/search')
+                    history.push('/search?keyword=중식당&payType=성남시')
                   }}
                 />
               </Col>

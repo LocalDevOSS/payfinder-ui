@@ -179,7 +179,7 @@ const SearchResult = ({ initialData }: SearchProps) => {
               <Row>
                 <Col span={20} offset={2}>
                   <GridLayout
-                    style={{ marginTop: '50px', maxHeight: '1000px', width: '100%', padding: 0 }}
+                    style={{ marginTop: '50px', maxHeight: '500px', width: '100%', padding: 0 }}
                     tag='ul'
                     options={{
                       isOverflowScroll: true,

@@ -7,8 +7,8 @@ const { Header } = Layout
 
 export const CommonHeader = () => (
   <Header id='header-container'>
-    <Row justify='start'>
-      <Col span={24}>
+    <Row>
+      <Col span={24} offset={0}>
         <Link to='/'>
           <a className='header-text'>Pay Finder</a>
         </Link>

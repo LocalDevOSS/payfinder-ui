@@ -11,7 +11,7 @@ export const MapService = {
   },
   initPoint: (store: StoreModel) => {
     // @ts-ignore
-    return new window.kakao.maps.LatLng(store.lat, store.logt)
+    return new window.kakao.maps.LatLng(store.latitude, store.longitude)
   },
   initMarker: (point: any) => {
     // @ts-ignore

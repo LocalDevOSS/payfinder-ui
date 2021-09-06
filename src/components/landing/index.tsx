@@ -1,5 +1,5 @@
 import { Col, Input, Layout, Row } from 'antd'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 
 import { CommonHeader } from '../common/header/CommonHeader'
@@ -15,6 +15,7 @@ interface LandingProps {
 
 const Landing = ({ initialData }: LandingProps) => {
   const history = useHistory()
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     const tokenId = localStorage.getItem('id')
@@ -72,12 +73,13 @@ const Landing = ({ initialData }: LandingProps) => {
             <Row className='landing-search-container'>
               <Col xs={24} sm={{ span: 20, offset: 2 }} md={{ span: 12, offset: 6 }} lg={{ span: 8, offset: 8 }}>
                 <Search
+                  onChange={(v) => setSearch(v.target.value)}
                   placeholder='지역, 식당 또는 주소'
                   allowClear
                   enterButton='검색'
                   size='large'
                   onSearch={() => {
-                    history.push('/search')
+                    history.push(`/search?q=${search}`)
                   }}
                 />
               </Col>

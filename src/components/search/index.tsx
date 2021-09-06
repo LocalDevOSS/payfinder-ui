@@ -1,8 +1,10 @@
 import { Col, Input, Layout, Row } from 'antd'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useHistory, useLocation } from 'react-router'
 
 import Restaurant from '../../interfaces/restaurant'
 import { CommonHeader } from '../common/header/CommonHeader'
+
 import '../../styles/search/index.css'
 
 const { Search } = Input
@@ -13,6 +15,8 @@ interface SearchProps {
 }
 
 const SearchResult = ({ initialData }: SearchProps) => {
+  const history = useHistory()
+  const [search, setSearch] = useState(new URLSearchParams(useLocation().search).get('q') ?? '')
   const data: Restaurant[] = [
     {
       id: 0,
@@ -104,7 +108,17 @@ const SearchResult = ({ initialData }: SearchProps) => {
             <Col span={12}>
               <Row id='search-search-row'>
                 <Col span={18} offset={3}>
-                  <Search placeholder='지역, 식당 또는 주소' allowClear enterButton='검색' size='large' />
+                  <Search
+                    value={search}
+                    onChange={(v) => setSearch(v.target.value)}
+                    placeholder='지역, 식당 또는 주소'
+                    allowClear
+                    enterButton='검색'
+                    size='large'
+                    onSearch={() => {
+                      history.push(`/search?q=${search}`)
+                    }}
+                  />
                 </Col>
               </Row>
               {card()}

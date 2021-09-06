@@ -1,6 +1,7 @@
 import { Col, Input, Layout, Row } from 'antd'
 import React, { useEffect, useRef } from 'react'
 
+import Restaurant from '../../interfaces/restaurant'
 import { CommonHeader } from '../common/header/CommonHeader'
 import '../../styles/search/index.css'
 
@@ -12,7 +13,7 @@ interface SearchProps {
 }
 
 const SearchResult = ({ initialData }: SearchProps) => {
-  const data = [
+  const data: Restaurant[] = [
     {
       id: 0,
       imageUrl:

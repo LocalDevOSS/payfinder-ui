@@ -1,10 +1,14 @@
-import { Col, Input, Layout, Row } from 'antd'
-import React, { useEffect } from 'react'
+import * as querystring from 'querystring'
+
+import { Col, Input, Layout, message, Row } from 'antd'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 
 import { CommonHeader } from '../common/header/CommonHeader'
 
+import { LandingConf } from './conf/LandingConf'
 import '../../styles/landing/index.css'
+import LandingCardList from './LandingCardList'
 
 const { Search } = Input
 const { Content } = Layout
@@ -15,6 +19,8 @@ interface LandingProps {
 
 const Landing = ({ initialData }: LandingProps) => {
   const history = useHistory()
+  const [payType, setPayType] = useState<string>()
+  const [storeType, setStoreType] = useState<string>()
 
   useEffect(() => {
     const tokenId = localStorage.getItem('id')
@@ -23,51 +29,6 @@ const Landing = ({ initialData }: LandingProps) => {
       history.push('/register')
     }
   }, [])
-
-  const card = () => {
-    const menu: string[] = ['음식', '식료품']
-    return menu.map((m) => {
-      return (
-        <div className='landing-card-container' key={Math.random()}>
-          <Row className='landing-card-title-row'>
-            <Col offset={1} span={10}>
-              <span className='landing-card-title-text'>{m}</span>
-            </Col>
-          </Row>
-          <Row>
-            <Col offset={0} span={24}>
-              <Row justify='center'>
-                <Col span={6} style={{ textAlign: 'center' }}>
-                  <img
-                    className='landing-card-image'
-                    src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-                  />
-                </Col>
-                <Col span={6} style={{ textAlign: 'center' }}>
-                  <img
-                    className='landing-card-image'
-                    src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-                  />
-                </Col>
-                <Col span={6} style={{ textAlign: 'center' }}>
-                  <img
-                    className='landing-card-image'
-                    src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-                  />
-                </Col>
-                <Col span={6} style={{ textAlign: 'center' }}>
-                  <img
-                    className='landing-card-image'
-                    src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-                  />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </div>
-      )
-    })
-  }
 
   return (
     <>
@@ -86,14 +47,20 @@ const Landing = ({ initialData }: LandingProps) => {
                   allowClear
                   enterButton='검색'
                   size='large'
-                  onSearch={() => {
-                    history.push('/search?keyword=중식당&payType=성남시')
+                  onSearch={(value) => {
+                    if (!value) {
+                      message.info('검색 키워드를 입력해주세요.')
+                    } else {
+                      history.push(
+                        `/search?${querystring.stringify({ keyword: value, payType: 'GOYANG', storeType: 'ALL' })}`,
+                      )
+                    }
                   }}
                 />
               </Col>
             </Row>
           </div>
-          <div>{card()}</div>
+          <LandingCardList menu={LandingConf.menu} />
         </Content>
       </Layout>
     </>

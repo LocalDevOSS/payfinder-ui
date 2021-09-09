@@ -40,12 +40,14 @@ const LandingCardList = ({ menu, history }: LandingCardListProps) => {
                         )
                       }}
                     >
-                      <img
-                        className='landing-card-image'
-                        src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-                      />
+                      <img className='landing-card-image' src={t.imageUrl} />
                       <div className='landing-card-text-container'>
-                        <span className='landing-card-text'>#{t.name}</span>
+                        <span
+                          className='landing-card-text'
+                          style={t.color === 'white' ? { color: 'white' } : { color: 'black' }}
+                        >
+                          #{t.name}
+                        </span>
                       </div>
                     </Col>
                   ))}

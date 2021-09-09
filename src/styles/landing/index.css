@@ -63,7 +63,7 @@
 }
 
 .landing-card-col {
-
+    opacity: 0.9;
 }
 
 .landing-card-col:hover {

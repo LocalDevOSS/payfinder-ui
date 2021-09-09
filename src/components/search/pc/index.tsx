@@ -1,8 +1,10 @@
 import * as queryString from 'querystring'
 
+import { GridLayout } from '@egjs/react-infinitegrid'
 import { Col, Empty, Input, Layout, Row } from 'antd'
 import dotProp from 'dot-prop-immutable'
 import React, { useEffect, useRef, useState } from 'react'
+import { BounceLoader } from 'react-spinners'
 
 import { StoreModel } from '../../../types/store/store.types'
 import '../../../styles/search/pc/index.css'
@@ -191,10 +193,30 @@ const SearchResultPc = ({ initialData }: SearchProps) => {
               {/* 리스팅 */}
               <Row>
                 <Col span={20} offset={2}>
-                  {stores && stores.length === 0 ? (
+                  {/* eslint-disable-next-line no-nested-ternary */}
+                  {stores && stores.length > 0 ? (
+                    <GridLayout
+                      style={{ marginTop: '50px', maxHeight: '800px', maxWidth: '100%', padding: 0 }}
+                      tag='ul'
+                      options={{
+                        isOverflowScroll: true,
+                        isConstantSize: false,
+                        useFit: false,
+                        horizontal: false,
+                        useRecycle: true,
+                        isEqualSize: true,
+                      }}
+                    >
+                      <SearchResultList stores={stores} map={map} />
+                    </GridLayout>
+                  ) : stores && stores.length === 0 ? (
                     <Empty description={<span>검색 결과가 없습니다.</span>} />
                   ) : (
-                    <SearchResultList stores={stores} map={map} />
+                    <Row justify='center' style={{ marginTop: '20px' }}>
+                      <Col>
+                        <BounceLoader size={60} />
+                      </Col>
+                    </Row>
                   )}
                 </Col>
               </Row>

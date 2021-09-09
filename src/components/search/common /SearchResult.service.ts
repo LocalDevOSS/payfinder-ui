@@ -41,7 +41,11 @@ export const SearchResultService = {
     url += postUrl
 
     axios.get(url).then((r) => {
-      setStore(r.data.length === 0 ? [] : r.data.filter((s: StoreModel) => s.latitude && s.longitude))
+      setStore(
+        r.data.length === 0
+          ? []
+          : r.data.filter((s: StoreModel) => s.latitude && s.longitude && s.type && s.address && s.sgName && s.name),
+      )
     })
   },
 }

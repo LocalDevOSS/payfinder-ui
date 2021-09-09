@@ -1,32 +1,19 @@
-import { GridLayout } from '@egjs/react-infinitegrid'
 import { Button, Col, Divider, Row } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { StoreModel } from '../../../types/store/store.types'
 import { MapService } from '../../common/map/Map.service'
 
 interface SearchResultListProps {
-  stores?: StoreModel[]
+  stores: StoreModel[]
   map?: any
 }
 
-const SearchResultList = ({ stores, map }: SearchResultListProps) => (
-  <GridLayout
-    style={{ marginTop: '50px', maxHeight: '800px', width: '100%', padding: 0 }}
-    tag='ul'
-    options={{
-      isOverflowScroll: true,
-      isConstantSize: true,
-      useFit: false,
-      horizontal: false,
-      useRecycle: true,
-      isEqualSize: true,
-    }}
-  >
-    {stores &&
-      stores.length > 0 &&
-      stores.map((d) => (
-        <Row key={Math.random()}>
+const SearchResultList = ({ stores, map }: SearchResultListProps) => {
+  return (
+    <div>
+      {stores.map((d) => (
+        <Row key={Math.random()} style={{ width: '100%', height: '100%' }}>
           <Col>
             <Row id='search-list-row'>
               <Col span={24}>
@@ -112,7 +99,8 @@ const SearchResultList = ({ stores, map }: SearchResultListProps) => (
           </Col>
         </Row>
       ))}
-  </GridLayout>
-)
+    </div>
+  )
+}
 
 export default SearchResultList

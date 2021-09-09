@@ -1,9 +1,10 @@
-import { Button, Col, Layout, Row, Select } from 'antd'
+import { Button, Col, Layout, message, Row, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 
 import { CommonHeader } from '../common/header/CommonHeader'
 import '../../styles/register/index.css'
+import { StoreConf } from '../search/common /conf/StoreConf'
 
 const { Content } = Layout
 const { Option } = Select
@@ -14,27 +15,34 @@ interface RegisterProps {
 
 const Register = ({ initialData }: RegisterProps) => {
   const [stepSeq, setStepSeq] = useState<number>(0)
+  const [payType, setPayType] = useState<string>()
+  const [storeType, setStoreType] = useState<string>()
   const history = useHistory()
 
+  const handlePayTypeChange = (value: string) => {
+    setPayType(value)
+  }
+
+  const handleStoreTypeChange = (value: string) => {
+    setStoreType(value)
+  }
+
   useEffect(() => {
-    if (stepSeq === 2) {
-      // fixme: 유저 등록 정보 처리
-      localStorage.setItem('id', '0')
+    if (stepSeq === 2 && payType && storeType) {
+      sessionStorage.setItem('payType', payType)
+      sessionStorage.setItem('storeType', storeType)
       history.push('/')
     }
   }, [stepSeq])
 
   const payTypeSelect = () => {
     return (
-      <Select
-        className='register-form-select'
-        showSearch
-        placeholder='페이 종류를 선택해주세요.'
-        optionFilterProp='children'
-      >
-        <Option value='성남시'>성남시</Option>
-        <Option value='용인시'>용인시</Option>
-        <Option value='부천시'>부천시</Option>
+      <Select className='register-form-select' placeholder='페이 종류를 선택해주세요.' onChange={handlePayTypeChange}>
+        {StoreConf.payType.map((t) => (
+          <Option key={t.value} value={t.value}>
+            {t.name}
+          </Option>
+        ))}
       </Select>
     )
   }
@@ -43,13 +51,14 @@ const Register = ({ initialData }: RegisterProps) => {
     return (
       <Select
         className='register-form-select'
-        showSearch
         placeholder='판매점 종류를 선택해주세요.'
-        optionFilterProp='children'
+        onChange={handleStoreTypeChange}
       >
-        <Option value='성남시'>음식점</Option>
-        <Option value='용인시'>병원</Option>
-        <Option value='부천시'>마트</Option>
+        {StoreConf.storeType.map((t) => (
+          <Option key={t.value} value={t.value}>
+            {t.name}
+          </Option>
+        ))}
       </Select>
     )
   }
@@ -95,7 +104,13 @@ const Register = ({ initialData }: RegisterProps) => {
                     id='register-form-button'
                     type='primary'
                     onClick={() => {
-                      setStepSeq(stepSeq + 1)
+                      if (stepSeq === 0 && !payType) {
+                        message.warn('페이 종류를 입력해주세요.')
+                      } else if (stepSeq === 1 && !storeType) {
+                        message.warn('판매점 종류를 입력해주세요.')
+                      } else {
+                        setStepSeq(stepSeq + 1)
+                      }
                     }}
                   >
                     다음

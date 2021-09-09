@@ -1,11 +1,16 @@
+import querystring from 'querystring'
+
 import { Col, Row } from 'antd'
 import React from 'react'
 
+import { LandingConf } from './conf/LandingConf'
+
 interface LandingCardListProps {
   menu: string[]
+  history: any
 }
 
-const LandingCardList = ({ menu }: LandingCardListProps) => {
+const LandingCardList = ({ menu, history }: LandingCardListProps) => {
   return (
     <>
       {menu.map((m) => {
@@ -19,42 +24,31 @@ const LandingCardList = ({ menu }: LandingCardListProps) => {
             <Row>
               <Col offset={0} span={24}>
                 <Row justify='center'>
-                  <Col className='landing-card-col' span={6} style={{ textAlign: 'center' }}>
-                    <img
-                      className='landing-card-image'
-                      src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-                    />
-                    <div className='landing-card-text-container'>
-                      <span className='landing-card-text'>#디저트</span>
-                    </div>
-                  </Col>
-                  <Col className='landing-card-col' span={6} style={{ textAlign: 'center' }}>
-                    <img
-                      className='landing-card-image'
-                      src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-                    />
-                    <div className='landing-card-text-container'>
-                      <span className='landing-card-text'>#이탈리안</span>
-                    </div>
-                  </Col>
-                  <Col className='landing-card-col' span={6} style={{ textAlign: 'center' }}>
-                    <img
-                      className='landing-card-image'
-                      src='https://mp-seoul-image-production-s3.mangoplate.com/265831/hpyolebdl7lz8t.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-                    />
-                    <div className='landing-card-text-container'>
-                      <span className='landing-card-text'>#중식</span>
-                    </div>
-                  </Col>
-                  <Col className='landing-card-col' span={6} style={{ textAlign: 'center' }}>
-                    <img
-                      className='landing-card-image'
-                      src='https://mp-seoul-image-production-s3.mangoplate.com/265831/hpyolebdl7lz8t.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-                    />
-                    <div className='landing-card-text-container'>
-                      <span className='landing-card-text'>#일식</span>
-                    </div>
-                  </Col>
+                  {LandingConf.recoTag.map((t) => (
+                    <Col
+                      className='landing-card-col'
+                      span={6}
+                      style={{ textAlign: 'center' }}
+                      key={t.name}
+                      onClick={() => {
+                        history.push(
+                          `/search?${querystring.stringify({
+                            keyword: t.name,
+                            payType: sessionStorage.getItem('payType'),
+                            storeType: sessionStorage.getItem('storeType'),
+                          })}`,
+                        )
+                      }}
+                    >
+                      <img
+                        className='landing-card-image'
+                        src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
+                      />
+                      <div className='landing-card-text-container'>
+                        <span className='landing-card-text'>#{t.name}</span>
+                      </div>
+                    </Col>
+                  ))}
                 </Row>
               </Col>
             </Row>

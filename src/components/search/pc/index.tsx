@@ -1,6 +1,6 @@
 import * as queryString from 'querystring'
 
-import { Button, Col, Empty, Input, Layout, Row } from 'antd'
+import { Col, Empty, Input, Layout, Row } from 'antd'
 import dotProp from 'dot-prop-immutable'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -33,8 +33,6 @@ const SearchResultPc = ({ initialData }: SearchProps) => {
 
   const [stores, setStores] = useState<StoreModel[]>()
 
-  const [render, setRender] = useState<boolean>(false)
-
   const container = useRef(null) // 지도를 담을 영역의 DOM 레퍼런스
 
   useEffect(() => {
@@ -58,7 +56,7 @@ const SearchResultPc = ({ initialData }: SearchProps) => {
     query = dotProp.set(query, 'storeType', storeType)
     window.history.pushState({}, '', `/search?${queryString.stringify(query)}`)
 
-    if (payType && storeType && keyword) {
+    if (payType && storeType) {
       SearchResultService.fetchStores(payType, storeType, keyword, setStores)
     }
   }, [payType, storeType, keyword])
@@ -158,7 +156,6 @@ const SearchResultPc = ({ initialData }: SearchProps) => {
                     size='large'
                     onSearch={(value) => {
                       setKeyword(value)
-                      setRender(true)
                     }}
                   />
                 </Col>
@@ -179,7 +176,7 @@ const SearchResultPc = ({ initialData }: SearchProps) => {
               {/* 리스팅 */}
               <Row>
                 <Col span={20} offset={2}>
-                  {render && (!stores || stores.length === 0) ? (
+                  {stores && stores.length === 0 ? (
                     <Empty description={<span>검색 결과가 없습니다.</span>} />
                   ) : (
                     <SearchResultList stores={stores} />

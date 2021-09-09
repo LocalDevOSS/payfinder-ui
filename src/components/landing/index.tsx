@@ -1,6 +1,6 @@
 import * as querystring from 'querystring'
 
-import { Col, Input, Layout, message, Row } from 'antd'
+import { Button, Col, Input, Layout, message, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 
@@ -19,13 +19,12 @@ interface LandingProps {
 
 const Landing = ({ initialData }: LandingProps) => {
   const history = useHistory()
-  const [payType, setPayType] = useState<string>()
-  const [storeType, setStoreType] = useState<string>()
 
   useEffect(() => {
-    const tokenId = localStorage.getItem('id')
+    const payType = sessionStorage.getItem('payType')
+    const storeType = sessionStorage.getItem('payType')
 
-    if (!tokenId) {
+    if (!payType || !storeType) {
       history.push('/register')
     }
   }, [])
@@ -52,15 +51,36 @@ const Landing = ({ initialData }: LandingProps) => {
                       message.info('검색 키워드를 입력해주세요.')
                     } else {
                       history.push(
-                        `/search?${querystring.stringify({ keyword: value, payType: 'GOYANG', storeType: 'ALL' })}`,
+                        `/search?${querystring.stringify({
+                          keyword: value,
+                          payType: sessionStorage.getItem('payType'),
+                          storeType: sessionStorage.getItem('storeType'),
+                        })}`,
                       )
                     }
                   }}
                 />
               </Col>
             </Row>
+            <Row className='landing-search-container' justify='center'>
+              <Button
+                size='large'
+                type='primary'
+                style={{ textAlign: 'center' }}
+                onClick={() => {
+                  history.push(
+                    `/search?${querystring.stringify({
+                      payType: sessionStorage.getItem('payType'),
+                      storeType: sessionStorage.getItem('storeType'),
+                    })}`,
+                  )
+                }}
+              >
+                전체 가맹점 보기
+              </Button>
+            </Row>
           </div>
-          <LandingCardList menu={LandingConf.menu} />
+          <LandingCardList menu={LandingConf.menu} history={history} />
         </Content>
       </Layout>
     </>

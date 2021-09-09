@@ -63,7 +63,7 @@
 }
 
 .landing-card-col {
-
+    opacity: 0.9;
 }
 
 .landing-card-col:hover {
@@ -94,7 +94,7 @@
 }
 
 .landing-card-image {
-    max-width: 1000px;
+    width: 500px;
     max-height: 200px;
     height: auto;
     object-fit: cover;

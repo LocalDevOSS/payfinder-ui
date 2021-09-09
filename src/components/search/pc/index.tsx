@@ -1,8 +1,10 @@
 import * as queryString from 'querystring'
 
+import { GridLayout } from '@egjs/react-infinitegrid'
 import { Col, Empty, Input, Layout, Row } from 'antd'
 import dotProp from 'dot-prop-immutable'
 import React, { useEffect, useRef, useState } from 'react'
+import { BounceLoader } from 'react-spinners'
 
 import { StoreModel } from '../../../types/store/store.types'
 import '../../../styles/search/pc/index.css'
@@ -32,6 +34,8 @@ const SearchResultPc = ({ initialData }: SearchProps) => {
   const [storeType, setStoreType] = useState<string>()
 
   const [stores, setStores] = useState<StoreModel[]>()
+
+  const [map, setMap] = useState<any>()
 
   const container = useRef(null) // 지도를 담을 영역의 DOM 레퍼런스
 
@@ -86,55 +90,68 @@ const SearchResultPc = ({ initialData }: SearchProps) => {
       })
 
       const markers: any[] = []
-      if (stores) {
-        stores.forEach((store, index) => {
-          const point = MapService.initPoint(store)
 
-          const marker = MapService.initMarker(point)
-          markers.push(marker)
+      stores.forEach((store, index) => {
+        const point = MapService.initPoint(store)
 
-          marker.setMap(map)
-          bounds.extend(point)
+        const marker = MapService.initMarker(point)
+        markers.push(marker)
 
+        marker.setMap(map)
+        bounds.extend(point)
+
+        // @ts-ignore
+        window.kakao.maps.event.addListener(marker, 'click', () => {
           // @ts-ignore
-          window.kakao.maps.event.addListener(marker, 'click', () => {
-            // @ts-ignore
-            const overlay = new window.kakao.maps.CustomOverlay({
-              // 오버레이에 띄울 내용
-              content:
-                `${
-                  // eslint-disable-next-line no-useless-concat
-                  `${'<div class="wrap">' + '    <div class="info">' + '        <div class="title">'}${
-                    store.name
-                  }            <div class="close" onclick="closeOverlay()" title="닫기"></div>` +
-                  `        </div>` +
-                  `        <div class="body">` +
-                  `            <div class="img">` +
-                  `                <img src= `
-                }${'https://mp-seoul-image-production-s3.mangoplate.com/430315/694014_1602948745934_49598?fit=around|359:240&crop=359:240;*,*&output-format=jpg&output-quality=80'} width="73" height="70">` +
-                `           </div>` +
-                `            <div class="desc">` +
-                `                <div class="ellipsis">${store.address}</div>` +
-                `                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>` +
-                `                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>` +
-                `            </div>` +
+          const overlay = new window.kakao.maps.CustomOverlay({
+            // 오버레이에 띄울 내용
+            content:
+              `${
+                // eslint-disable-next-line no-useless-concat
+                `${'<div class="wrap">' + '    <div class="info">' + '        <div class="title">'}${
+                  store.name
+                }            <div class="close" onclick="closeOverlay()" title="닫기"></div>` +
                 `        </div>` +
-                `    </div>` +
-                `</div>`,
-              map,
-              position: marker.getPosition(),
-            })
-            // 아무데나 클릭하게되면 overlay를 끄기
-            // @ts-ignore
-            window.kakao.maps.event.addListener(map, 'click', (mouseEvent) => {
-              overlay.setMap(null)
-            })
-            overlay.setMap(map)
+                `        <div class="body">` +
+                `            <div class="img">` +
+                `                <img src= `
+              }${'https://play-lh.googleusercontent.com/mOpGQGvsIJPzP4Uu23kf0toU8KbdM6BTSo9UByXO5aGP0UxH9zlPzmWnE9M5tfD2pyA'} width="73" height="70">` +
+              `           </div>` +
+              `            <div class="desc">` +
+              `                <div class="ellipsis">${store.type}</div>` +
+              `                <div class="jibun ellipsis">${store.address}</div>` +
+              `            </div>` +
+              `        </div>` +
+              `    </div>` +
+              `</div>`,
+            map,
+            position: marker.getPosition(),
           })
+          // 아무데나 클릭하게되면 overlay를 끄기
+          // @ts-ignore
+          window.kakao.maps.event.addListener(map, 'click', (mouseEvent) => {
+            overlay.setMap(null)
+          })
+          overlay.setMap(map)
         })
-        clusterer.addMarkers(markers)
-        map.setBounds(bounds)
+      })
+      clusterer.addMarkers(markers)
+      map.setBounds(bounds)
+
+      setMap(map)
+    } else {
+      const options = {
+        // 지도를 생성할 때 필요한 기본 옵션
+        // @ts-ignore
+        // eslint-disable-next-line no-new
+        center: new window.kakao.maps.LatLng(37.27572608123713, 127.00906135396933), // 지도의 중심좌표.
+        level: 3, // 지도의 레벨(확대, 축소 정도)
       }
+
+      // 지도 생성 및 객체 리턴
+      const map = MapService.init(container.current, options)
+
+      setMap(map)
     }
     return () => {}
   }, [stores])
@@ -176,10 +193,30 @@ const SearchResultPc = ({ initialData }: SearchProps) => {
               {/* 리스팅 */}
               <Row>
                 <Col span={20} offset={2}>
-                  {stores && stores.length === 0 ? (
+                  {/* eslint-disable-next-line no-nested-ternary */}
+                  {stores && stores.length > 0 ? (
+                    <GridLayout
+                      style={{ marginTop: '50px', maxHeight: '800px', maxWidth: '100%', padding: 0 }}
+                      tag='ul'
+                      options={{
+                        isOverflowScroll: true,
+                        isConstantSize: false,
+                        useFit: false,
+                        horizontal: false,
+                        useRecycle: true,
+                        isEqualSize: true,
+                      }}
+                    >
+                      <SearchResultList stores={stores} map={map} />
+                    </GridLayout>
+                  ) : stores && stores.length === 0 ? (
                     <Empty description={<span>검색 결과가 없습니다.</span>} />
                   ) : (
-                    <SearchResultList stores={stores} />
+                    <Row justify='center' style={{ marginTop: '20px' }}>
+                      <Col>
+                        <BounceLoader size={60} />
+                      </Col>
+                    </Row>
                   )}
                 </Col>
               </Row>

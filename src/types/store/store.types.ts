@@ -6,5 +6,5 @@ export interface StoreModel {
   address: string
   latitude: string
   longitude: string
-  imageUrl: string
+  imgUrl: string
 }

@@ -13,7 +13,7 @@ interface LandingCardListProps {
 const LandingCardList = ({ menu, history }: LandingCardListProps) => {
   return (
     <>
-      {menu.map((m) => {
+      {menu.map((m, seq) => {
         return (
           <div className='landing-card-container' key={Math.random()}>
             <Row className='landing-card-title-row'>
@@ -24,31 +24,69 @@ const LandingCardList = ({ menu, history }: LandingCardListProps) => {
             <Row>
               <Col offset={0} span={24}>
                 <Row justify='center'>
-                  {LandingConf.recoTag.map((t) => (
-                    <Col
-                      className='landing-card-col'
-                      span={6}
-                      style={{ textAlign: 'center' }}
-                      key={t.name}
-                      onClick={() => {
-                        history.push(
-                          `/search?${querystring.stringify({
-                            keyword: t.name,
-                            payType: sessionStorage.getItem('payType'),
-                            storeType: sessionStorage.getItem('storeType'),
-                          })}`,
-                        )
-                      }}
-                    >
-                      <img
-                        className='landing-card-image'
-                        src='https://mp-seoul-image-production-s3.mangoplate.com/keyword_search/meta/pictures/tvsvgscjmukmnbnv.jpg?fit=around|600:400&crop=600:400;*,*&output-format=jpg&output-quality=80'
-                      />
-                      <div className='landing-card-text-container'>
-                        <span className='landing-card-text'>#{t.name}</span>
-                      </div>
-                    </Col>
-                  ))}
+                  {seq === 0
+                    ? LandingConf.recoTag.map((t) => (
+                        <Col
+                          className='landing-card-col'
+                          span={6}
+                          style={{ textAlign: 'center' }}
+                          key={t.name}
+                          onClick={() => {
+                            history.push(
+                              `/search?${querystring.stringify({
+                                keyword: t.name,
+                                payType: sessionStorage.getItem('payType'),
+                                storeType: sessionStorage.getItem('storeType'),
+                              })}`,
+                            )
+                          }}
+                        >
+                          <img className='landing-card-image' src={t.imageUrl} />
+                          <div className='landing-card-text-container'>
+                            <span
+                              className='landing-card-text'
+                              style={
+                                t.color === 'white'
+                                  ? { color: 'white', backgroundColor: 'black' }
+                                  : { color: 'black', backgroundColor: 'white' }
+                              }
+                            >
+                              #{t.name}
+                            </span>
+                          </div>
+                        </Col>
+                      ))
+                    : LandingConf.popTag.map((t) => (
+                        <Col
+                          className='landing-card-col'
+                          span={6}
+                          style={{ textAlign: 'center' }}
+                          key={t.name}
+                          onClick={() => {
+                            history.push(
+                              `/search?${querystring.stringify({
+                                keyword: t.name,
+                                payType: sessionStorage.getItem('payType'),
+                                storeType: sessionStorage.getItem('storeType'),
+                              })}`,
+                            )
+                          }}
+                        >
+                          <img className='landing-card-image' src={t.imageUrl} />
+                          <div className='landing-card-text-container'>
+                            <span
+                              className='landing-card-text'
+                              style={
+                                t.color === 'white'
+                                  ? { color: 'white', backgroundColor: 'black' }
+                                  : { color: 'black', backgroundColor: 'white' }
+                              }
+                            >
+                              #{t.name}
+                            </span>
+                          </div>
+                        </Col>
+                      ))}
                 </Row>
               </Col>
             </Row>

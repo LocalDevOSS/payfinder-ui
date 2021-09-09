@@ -110,7 +110,7 @@ const SearchResultMobile = ({ initialData }: SearchProps) => {
                   `        <div class="body">` +
                   `            <div class="img">` +
                   `                <img src= `
-                }${'https://mp-seoul-image-production-s3.mangoplate.com/430315/694014_1602948745934_49598?fit=around|359:240&crop=359:240;*,*&output-format=jpg&output-quality=80'} width="73" height="70">` +
+                }${'https://play-lh.googleusercontent.com/mOpGQGvsIJPzP4Uu23kf0toU8KbdM6BTSo9UByXO5aGP0UxH9zlPzmWnE9M5tfD2pyA'} width="73" height="70">` +
                 `           </div>` +
                 `            <div class="desc">` +
                 `                <div class="ellipsis">${store.address}</div>` +
